@@ -2,7 +2,6 @@ package com.swissroute.backend.controller;
 
 import com.swissroute.backend.dto.request.LoginRequest;
 import com.swissroute.backend.dto.request.RegisterRequest;
-import com.swissroute.backend.enums.Role;
 import com.swissroute.backend.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
