@@ -1,8 +1,7 @@
 package com.swissroute.backend.service;
 
-import com.swissroute.backend.entity.Usuario;
+import com.swissroute.backend.entity.User;
 import com.swissroute.backend.repository.UsuarioRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,11 +19,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario u = repo.findByEmail(username)
+        User u = repo.findByEmail(username)
                 .orElseThrow(()-> new UsernameNotFoundException(
                         "Usuario no encontrado: "+username
                 ));
-        return User.builder()
+        return org.springframework.security.core.userdetails.User.builder()
                 .username(u.getEmail())
                 .password(u.getPasswordHash())
                 .roles(u.getRole().toString())

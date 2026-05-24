@@ -3,7 +3,7 @@ package com.swissroute.backend.service;
 import com.swissroute.backend.config.JwtUtil;
 import com.swissroute.backend.dto.request.LoginRequest;
 import com.swissroute.backend.dto.request.RegisterRequest;
-import com.swissroute.backend.entity.Usuario;
+import com.swissroute.backend.entity.User;
 import com.swissroute.backend.enums.Role;
 import com.swissroute.backend.repository.UsuarioRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,19 +27,19 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public Usuario registrar(RegisterRequest registerRequest) {
+    public User registrar(RegisterRequest registerRequest) {
         if (repo.findByEmail(registerRequest.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Ya existe un usuario con ese email");
         }
         String hash = passwordEncoder.encode(registerRequest.getPassword());
         Role role = Role.valueOf(registerRequest.getRole().toString().toUpperCase());
-        Usuario u = new Usuario(
-                registerRequest.getNombre(),
-                role,
-                registerRequest.getEmail(),
-                hash,
-                registerRequest.getCiudad()
-        );
+        User u = new User();
+        u.setName(registerRequest.getName());
+        u.setEmail(registerRequest.getEmail());
+        u.setRole(Role.USER);
+        u.setCity(registerRequest.getCity());
+        u.setPasswordHash(hash);
+
         return repo.save(u);
     }
 
