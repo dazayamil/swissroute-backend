@@ -1,0 +1,10 @@
+package com.swissroute.backend.repository;
+
+import com.swissroute.backend.entity.SearchHistory;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface SearchHistoryRepository extends JpaRepository<SearchHistory, Long> {
+    List<SearchHistory> findByUserIdOrderByQueryDateDesc(Long userId);
+}
