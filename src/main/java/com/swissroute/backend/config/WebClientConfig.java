@@ -14,7 +14,7 @@ public class WebClientConfig {
     @Bean
     public WebClient swissTransportWebClient(){
         return WebClient.builder()
-                .baseUrl(baseUrl)
+                .baseUrl(this.baseUrl)
                 .defaultHeader("Accept", "application/json")
                 .build();
     }
