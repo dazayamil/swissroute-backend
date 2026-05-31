@@ -26,7 +26,8 @@ public class ConnectionController {
             @RequestParam String to,
             @RequestParam(required = false) String date,
             @RequestParam(required = false) String time,
-            @RequestParam(required = false) String transportations){
+            @RequestParam(required = false) String transportations,
+            @RequestParam(value = "via[]", required = false) List<String> via){
 
         List<ConnectionDto> connections =
                 connectionService.getConnections(
@@ -34,7 +35,8 @@ public class ConnectionController {
                         to,
                         date,
                         time,
-                        transportations);
+                        transportations,
+                        via);
 
         return ResponseEntity.ok(connections);
 

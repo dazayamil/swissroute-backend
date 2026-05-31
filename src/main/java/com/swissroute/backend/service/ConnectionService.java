@@ -5,8 +5,10 @@ import com.swissroute.backend.dto.response.ConnectionDto;
 import com.swissroute.backend.dto.response.ConnectionsResponseDTO;
 import com.swissroute.backend.dto.response.ExternalConnectionDTO;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,13 @@ public class ConnectionService {
             String to,
             String date,
             String time,
-            String transportations){
+            String transportations,
+            List<String> via){
+        if(via != null && via.size() > 5){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "A maximum of 5 intermediate stops (via) is allowed");
+        }
 
         StringBuilder uri = new StringBuilder(
                 "/connections?from=" + from + "&to=" + to
@@ -43,6 +51,11 @@ public class ConnectionService {
 
         if(transportations != null && !transportations.isBlank()){
             uri.append("&transportations=").append(transportations);
+        }
+        if(via != null && !via.isEmpty()){
+            for(String stop : via){
+                uri.append("&via[]=").append(stop);
+            }
         }
 
         ConnectionsResponseDTO response =

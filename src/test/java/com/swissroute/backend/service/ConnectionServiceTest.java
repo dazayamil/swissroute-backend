@@ -66,6 +66,7 @@ public class ConnectionServiceTest {
                         "Genève",
                         null,
                         null,
+                        null,
                         null
                 );
 
@@ -97,6 +98,7 @@ public class ConnectionServiceTest {
                 connectionService.getConnections(
                         "Lausanne",
                         "Genève",
+                        null,
                         null,
                         null,
                         null
@@ -144,6 +146,7 @@ public class ConnectionServiceTest {
                 connectionService.getConnections(
                         "Lausanne",
                         "Genève",
+                        null,
                         null,
                         null,
                         null
