@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface FavoriteStationRepository extends JpaRepository<FavoriteStation, Long> {
     List<FavoriteStation> findByUserId(Long userId);
+    boolean existsByUserIdAndExternalStationId(Long userId, String externalStationId);
 }
