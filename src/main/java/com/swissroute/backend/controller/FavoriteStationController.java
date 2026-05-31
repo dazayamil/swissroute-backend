@@ -16,11 +16,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/estaciones-favoritas")
 public class FavoriteStationController {
-
     private final StationboardService stationboardService;
+    private final FavoriteStationService service;
 
-    public FavoriteStationController(StationboardService stationboardService) {
+    public FavoriteStationController(StationboardService stationboardService, FavoriteStationService service) {
         this.stationboardService = stationboardService;
+        this.service = service;
     }
 
     @GetMapping("/{id}/tablon")
@@ -30,10 +31,6 @@ public class FavoriteStationController {
             @RequestParam(required = false) String type) {
         return ResponseEntity.ok(stationboardService.getStationboardByFavorite(id, limit, type));
     private final FavoriteStationService service;
-
-    public FavoriteStationController(FavoriteStationService service) {
-        this.service = service;
-    }
 
     @PostMapping
     public ResponseEntity<FavoriteStationResponse> add(
