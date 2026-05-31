@@ -1,5 +1,8 @@
 package com.swissroute.backend.controller;
 
+import com.swissroute.backend.dto.response.StationboardDTO;
+import com.swissroute.backend.service.StationboardService;
+import org.springframework.http.ResponseEntity;
 import com.swissroute.backend.dto.request.FavoriteStationRequest;
 import com.swissroute.backend.dto.response.FavoriteStationResponse;
 import com.swissroute.backend.service.FavoriteStationService;
@@ -13,12 +16,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/estaciones-favoritas")
 public class FavoriteStationController {
-
+    private final StationboardService stationboardService;
     private final FavoriteStationService service;
 
-    public FavoriteStationController(FavoriteStationService service) {
+    public FavoriteStationController(StationboardService stationboardService, FavoriteStationService service) {
+        this.stationboardService = stationboardService;
         this.service = service;
     }
+
+    @GetMapping("/{id}/tablon")
+    public ResponseEntity<List<StationboardDTO>> getStationboardByFavorite(
+            @PathVariable Long id,
+            @RequestParam(required = false) Integer limit,
+            @RequestParam(required = false) String type) {
+        return ResponseEntity.ok(stationboardService.getStationboardByFavorite(id, limit, type));
+    private final FavoriteStationService service;
 
     @PostMapping
     public ResponseEntity<FavoriteStationResponse> add(
