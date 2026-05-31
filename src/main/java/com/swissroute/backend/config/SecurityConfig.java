@@ -37,11 +37,7 @@ public class SecurityConfig {
                         sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // Rutas públicas vs protegidas
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register", "/error",
-                                "/public/**",
-                                "/api/connections/**",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register", "/error", "/public/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 // Agregar filtros personalizados

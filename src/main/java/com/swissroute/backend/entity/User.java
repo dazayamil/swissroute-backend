@@ -36,7 +36,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String passwordHash;
 
-    @Column(name = "city_base", nullable = false)
+    @Column(name = "ciudad_base", nullable = false)
     private String city;
 
     @CreationTimestamp

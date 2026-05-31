@@ -6,13 +6,11 @@ import com.swissroute.backend.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-@SecurityRequirement(name = "bearerAuth")
 @CrossOrigin("*")
 public class AuthController {
     private final AuthService authService;
