@@ -5,6 +5,7 @@ import com.swissroute.backend.dto.response.ConnectionDto;
 import com.swissroute.backend.dto.response.ConnectionsResponseDTO;
 import com.swissroute.backend.dto.response.ExternalConnectionDTO;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,9 +15,11 @@ import java.util.List;
 public class ConnectionService {
 
     private final SwissApiClient swissApiClient;
+    private final SearchHistoryService searchHistoryService;
 
-    public ConnectionService(SwissApiClient swissApiClient){
+    public ConnectionService(SwissApiClient swissApiClient, SearchHistoryService searchHistoryService){
         this.swissApiClient = swissApiClient;
+        this.searchHistoryService = searchHistoryService;
     }
 
     public List<ConnectionDto> getConnections(
@@ -61,6 +64,18 @@ public class ConnectionService {
 
             result.add(dto);
         }
+
+        String email = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+
+        searchHistoryService.saveHistory(
+                email,
+                from,
+                to,
+                result.size()
+        );
 
         return result;
     }
