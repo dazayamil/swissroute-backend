@@ -30,7 +30,7 @@ public class FavoriteStationController {
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) String type) {
         return ResponseEntity.ok(stationboardService.getStationboardByFavorite(id, limit, type));
-    private final FavoriteStationService service;
+    }
 
     @PostMapping
     public ResponseEntity<FavoriteStationResponse> add(
