@@ -17,6 +17,11 @@ public class StationController {
         this.stationService = stationService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<StationResponse>> searchByName(@RequestParam String query) {
+        return ResponseEntity.ok(stationService.searchByName(query));
+    }
+
     @GetMapping("/search")
     public ResponseEntity<List<StationResponse>> search(
             @RequestParam(required = false) Double x,
