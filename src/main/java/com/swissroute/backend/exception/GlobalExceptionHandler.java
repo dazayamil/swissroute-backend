@@ -33,4 +33,35 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(error);
     }
+
+    @ExceptionHandler(FavoriteRouteAccessDeniedException.class)
+    public ResponseEntity<Map<String, Object>> handleFavoriteRouteAcessDenied(FavoriteRouteAccessDeniedException ex){
+
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", 403);
+        error.put("error", "Forbidden");
+        error.put("message", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    @ExceptionHandler(FavoriteRouteNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleFavoriteRouteNotFound(FavoriteRouteNotFoundException ex){
+
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", 404);
+        error.put("message", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleUserNotFound(FavoriteRouteNotFoundException ex){
+
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", 404);
+        error.put("message", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
 }
