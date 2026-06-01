@@ -8,4 +8,8 @@ import java.util.List;
 
 public interface FavoriteRouteRepository extends JpaRepository<FavoriteRoute, Long> {
     List<FavoriteRoute> findByUserId(Long userId);
+
+    boolean existsByUserIdAndName(
+            long userId,
+            String name);
 }
