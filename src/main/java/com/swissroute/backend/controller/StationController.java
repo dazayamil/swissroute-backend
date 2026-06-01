@@ -1,5 +1,6 @@
 package com.swissroute.backend.controller;
 
+import com.swissroute.backend.dto.response.StationDTO;
 import com.swissroute.backend.dto.response.StationResponse;
 import com.swissroute.backend.service.StationService;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,11 @@ public class StationController {
 
     public StationController(StationService stationService) {
         this.stationService = stationService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StationDTO>> searchByName(@RequestParam String query) {
+        return ResponseEntity.ok(stationService.searchByName(query));
     }
 
     @GetMapping("/search")
