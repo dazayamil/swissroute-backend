@@ -1,6 +1,7 @@
 package com.swissroute.backend.service;
 
 import com.swissroute.backend.client.SwissApiClient;
+import com.swissroute.backend.dto.response.StationDTO;
 import com.swissroute.backend.dto.response.StationResponse;
 import com.swissroute.backend.dto.response.StationsApiResponse;
 import com.swissroute.backend.exception.ExternalApiClientException;
@@ -22,7 +23,7 @@ public class StationService {
         this.swissApiClient = swissApiClient;
     }
 
-    public List<StationResponse> searchByName(String query) {
+    public List<StationDTO> searchByName(String query) {
         if (query == null || query.isBlank()) {
             throw new QueryParameterRequiredException("The query parameter is required");
         }
@@ -41,7 +42,7 @@ public class StationService {
                     "The external transport API is currently unavailable", ex);
         }
 
-        return mapStations(apiResponse);
+        return mapStationDtos(apiResponse);
     }
 
     public List<StationResponse> searchByCoordinates(Double x, Double y, String query) {
@@ -74,6 +75,21 @@ public class StationService {
                         .latitude(s.getCoordinate() != null ? s.getCoordinate().getX() : null)
                         .longitude(s.getCoordinate() != null ? s.getCoordinate().getY() : null)
                         .distance(s.getDistance() != null ? s.getDistance().doubleValue() : null)
+                        .build())
+                .toList();
+    }
+
+    private List<StationDTO> mapStationDtos(StationsApiResponse apiResponse) {
+        if (apiResponse == null || apiResponse.getStations() == null) {
+            return List.of();
+        }
+
+        return apiResponse.getStations().stream()
+                .map(s -> StationDTO.builder()
+                        .id(s.getId())
+                        .nombre(s.getName())
+                        .latitud(s.getCoordinate() != null ? s.getCoordinate().getX() : null)
+                        .longitud(s.getCoordinate() != null ? s.getCoordinate().getY() : null)
                         .build())
                 .toList();
     }
