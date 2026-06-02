@@ -4,6 +4,7 @@ import com.swissroute.backend.dto.request.LoginRequest;
 import com.swissroute.backend.dto.request.RegisterRequest;
 import com.swissroute.backend.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -29,14 +30,15 @@ public class AuthController {
     }
 
     @Operation(summary = "Register a new user")
+    @SecurityRequirements
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest registerRequest) {
         authService.registrar(registerRequest);
-
         return ResponseEntity.ok(Map.of("mensaje", "Usuario registrado correctamente"));
     }
 
     @Operation(summary = "Authenticate user")
+    @SecurityRequirements
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         String token = authService.login(loginRequest);

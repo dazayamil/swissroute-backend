@@ -2,6 +2,8 @@ package com.swissroute.backend.controller;
 
 import com.swissroute.backend.dto.response.StationboardDTO;
 import com.swissroute.backend.service.StationboardService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import com.swissroute.backend.dto.request.FavoriteStationRequest;
 import com.swissroute.backend.dto.response.FavoriteStationResponse;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/estaciones-favoritas")
+@Tag(name = "Favorite stations", description = "Authenticated user's favorite stations")
 public class FavoriteStationController {
     private final StationboardService stationboardService;
     private final FavoriteStationService service;
@@ -24,6 +27,7 @@ public class FavoriteStationController {
         this.service = service;
     }
 
+    @Operation(summary = "Get stationboard for a favorite station")
     @GetMapping("/{id}/tablon")
     public ResponseEntity<List<StationboardDTO>> getStationboardByFavorite(
             @PathVariable Long id,
@@ -32,6 +36,7 @@ public class FavoriteStationController {
         return ResponseEntity.ok(stationboardService.getStationboardByFavorite(id, limit, type));
     }
 
+    @Operation(summary = "Create a favorite station")
     @PostMapping
     public ResponseEntity<FavoriteStationResponse> add(
             @RequestBody FavoriteStationRequest request,
@@ -40,11 +45,13 @@ public class FavoriteStationController {
                 .body(service.add(authentication.getName(), request));
     }
 
+    @Operation(summary = "List favorite stations")
     @GetMapping
     public ResponseEntity<List<FavoriteStationResponse>> list(Authentication authentication) {
         return ResponseEntity.ok(service.list(authentication.getName()));
     }
 
+    @Operation(summary = "Delete a favorite station")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);

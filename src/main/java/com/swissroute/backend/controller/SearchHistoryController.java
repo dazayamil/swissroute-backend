@@ -2,6 +2,8 @@ package com.swissroute.backend.controller;
 
 import com.swissroute.backend.entity.SearchHistory;
 import com.swissroute.backend.service.SearchHistoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/historial")
+@Tag(name = "Search history", description = "Authenticated user's connection search history")
 public class SearchHistoryController {
 
     private final SearchHistoryService searchHistoryService;
@@ -21,6 +24,7 @@ public class SearchHistoryController {
         this.searchHistoryService = searchHistoryService;
     }
 
+    @Operation(summary = "List search history")
     @GetMapping
     public ResponseEntity<Page<SearchHistory>> getHistory(Authentication authentication, Pageable pageable){
 
@@ -32,6 +36,7 @@ public class SearchHistoryController {
         );
     }
 
+    @Operation(summary = "Delete a history item")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteHistory(
             @PathVariable Long id,
@@ -45,6 +50,7 @@ public class SearchHistoryController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Delete all history")
     @DeleteMapping
     public ResponseEntity<Void> deleteAllHistory(Authentication authentication){
 
