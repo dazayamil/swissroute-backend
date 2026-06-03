@@ -78,6 +78,18 @@ mvn spring-boot:run
 
 La aplicación arranca en `http://localhost:8080`
 
+### 5. Usuarios precargados
+
+Al iniciar, la aplicación carga automáticamente (`data.sql`) algunos usuarios de ejemplo para probar los endpoints sin necesidad de registrarse:
+
+| Email | Contraseña | Rol |
+|---|---|---|
+| `bytescolaborativos@swissroute.com` | `123123` | ADMIN |
+| `chanti@swissroute.com` | `123123` | USER |
+| `jorex@swissroute.com` | `123123` | USER |
+
+> Los tres usuarios ya vienen con rutas favoritas, estaciones favoritas e historial de búsqueda cargados.
+
 ---
 
 ## 📁 Estructura del proyecto

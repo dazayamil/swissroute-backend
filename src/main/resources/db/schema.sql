@@ -102,14 +102,27 @@ INSERT INTO users (name, email, password, role, city_base) VALUES
     ('Chanti', 'chanti@swissroute.com', '$2a$10$2Ydvv1U4IFbsSg7PVP/AXOgbEGQClsLo88QspGPWKNwycgGuYxhMu', 'USER', 'Bern'),      -- password: 123123
     ('Jorex', 'jorex@swissroute.com', '$2a$10$2Ydvv1U4IFbsSg7PVP/AXOgbEGQClsLo88QspGPWKNwycgGuYxhMu', 'USER', 'Genève');     -- password: 123123
 
+-- Rutas favoritas (1 = bytescolaborativos, 2 = chanti, 3 = jorex)
 INSERT INTO favorite_routes (user_id, name, origin, destination, transport_type) VALUES
+    (1, 'Oficina', 'Zürich HB', 'Luzern', 'TRAIN'),
+    (1, 'Aeropuerto', 'Zürich HB', 'Zürich Flughafen', 'TRAIN'),
     (2, 'Casa - Trabajo', 'Bern', 'Zürich HB', 'TRAIN'),
-    (2, 'Fin de semana', 'Bern', 'Interlaken Ost', 'TRAIN');
+    (2, 'Fin de semana', 'Bern', 'Interlaken Ost', 'TRAIN'),
+    (3, 'Trabajo', 'Genève', 'Lausanne', 'TRAIN'),
+    (3, 'Paseo', 'Genève', 'Montreux', 'BOAT');
 
 INSERT INTO favorite_station (user_id, external_station_id, station_name) VALUES
+    (1, '8503000', 'Zürich HB'),
+    (1, '8503016', 'Zürich Flughafen'),
     (2, '8507000', 'Bern'),
-    (2, '8503000', 'Zürich HB');
+    (2, '8503000', 'Zürich HB'),
+    (3, '8501008', 'Genève'),
+    (3, '8501120', 'Lausanne');
 
 INSERT INTO search_history (user_id, origin, destination, num_results) VALUES
+    (1, 'Zürich HB', 'Luzern', 5),
+    (1, 'Zürich HB', 'Bern', 6),
     (2, 'Bern', 'Zürich HB', 4),
-    (2, 'Bern', 'Genève', 3);
+    (2, 'Bern', 'Genève', 3),
+    (3, 'Genève', 'Lausanne', 4),
+    (3, 'Genève', 'Zürich HB', 3);
