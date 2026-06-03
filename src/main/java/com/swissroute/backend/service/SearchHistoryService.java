@@ -6,6 +6,7 @@ import com.swissroute.backend.repository.SearchHistoryRepository;
 import com.swissroute.backend.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -48,7 +49,11 @@ public class SearchHistoryService {
                 .orElseThrow(() ->
                         new RuntimeException("Usuario no encontrado"));
 
-        return searchHistoryRepository.findByUserIdOrderByQueryDateDesc(user.getId(), pageable);
+        // El orden ya está fijado por queryDate (descendente) en el repositorio,
+        // por eso solo tomamos la paginación y descartamos el sort del cliente.
+        Pageable pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+
+        return searchHistoryRepository.findByUserIdOrderByQueryDateDesc(user.getId(), pageRequest);
     }
 
     public void deleteHistory(Long historyId, String email){
