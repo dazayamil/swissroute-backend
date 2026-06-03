@@ -106,6 +106,14 @@ swissroute-backend/
 
 ---
 
+## 🗺 Modelo entidad-relación (MER)
+
+<p align="center">
+  <img src="SwissRoute-MER.png" alt="Modelo entidad-relación de SwissRoute" width="800">
+</p>
+
+---
+
 ## 🗃 Modelo de base de datos
 
 | Tabla | Descripción |
